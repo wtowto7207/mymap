@@ -9,6 +9,50 @@
         android:clickable="true" />
 
     <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="35dp"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/id_start_text"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="起点"
+            android:textSize="30sp"/>
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_toRightOf="@+id/id_start_text"
+            android:hint="请输入起始位置"
+            android:paddingLeft="30dp"
+            android:textSize="25sp"
+           />
+
+        <TextView
+            android:id="@+id/id_end_text"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_alignLeft="@+id/id_start_text"
+            android:layout_below="@+id/id_start_text"
+            android:text="终点"
+            android:textSize="30sp"
+            android:paddingTop="10dp"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:hint="请输入终点位置"
+            android:layout_toRightOf="@+id/id_end_text"
+            android:layout_below="@+id/id_start_text"
+            android:paddingTop="10dp"
+            android:paddingLeft="30dp"
+            android:textSize="25sp"
+            />
+
+    </RelativeLayout>
+
+    <RelativeLayout
         android:visibility="gone"
         android:clickable="true"
         android:id="@+id/id_marker_ly"
@@ -69,6 +113,7 @@
                 android:layout_marginRight="10dp"
                 >
                 <ImageView
+                    android:id="@+id/id_info_img_zan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/map_zan"
@@ -79,7 +124,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="14232人赞过"/>
+                    android:text="14232"/>
             </LinearLayout>
 
         </RelativeLayout>

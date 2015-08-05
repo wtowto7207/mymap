@@ -57,7 +57,9 @@ public class MainActivity extends Activity {
     //覆盖物相关
     private BitmapDescriptor mMarker;
     private RelativeLayout mMarkerly;
-
+    private ImageView img, zanImg;
+    private TextView name, distance, zan;
+    private boolean isFirstClick = true;
 
 
     @Override
@@ -81,33 +83,61 @@ public class MainActivity extends Activity {
             @Override
             public boolean onMarkerClick(Marker marker) {
                 Bundle bundle = marker.getExtraInfo();
-                Info info = (Info) bundle.getSerializable("info");
+                final Info info = (Info) bundle.getSerializable("info");
 
-                ImageView img = (ImageView) mMarkerly.findViewById(R.id.id_info_img);
-                TextView name = (TextView) mMarkerly.findViewById(R.id.id_info_name);
-                TextView distance = (TextView) mMarkerly.findViewById(R.id.id_info_distance);
-                TextView zan = (TextView) mMarkerly.findViewById(R.id.id_info_zan);
+                img = (ImageView) mMarkerly.findViewById(R.id.id_info_img);
+                name = (TextView) mMarkerly.findViewById(R.id.id_info_name);
+                distance = (TextView) mMarkerly.findViewById(R.id.id_info_distance);
+                zan = (TextView) mMarkerly.findViewById(R.id.id_info_zan);
+                zanImg = (ImageView) mMarkerly.findViewById(R.id.id_info_img_zan);
+
 
                 img.setImageResource(info.getImgId());
                 name.setText(info.getName());
                 distance.setText(info.getDistance());
+                zanImg.setImageResource(info.getZanId());
                 zan.setText(info.getZan() + "");
+                isFirstClick = info.getFirstClick();
 
                 InfoWindow infoWindow;
                 TextView tv = new TextView(context);
                 tv.setText(info.getName());
                 tv.setTextColor(Color.parseColor("#ffffff"));
                 tv.setBackgroundResource(R.drawable.location_tips);
-                tv.setPadding(40,20,40,0);
-
+                tv.setPadding(40, 20, 40, 0);
 
 
                 final LatLng latLng = marker.getPosition();
                 final int offY = -100;
 
-                infoWindow = new InfoWindow(tv,latLng,offY);
+                infoWindow = new InfoWindow(tv, latLng, offY);
 
                 mBaiduMap.showInfoWindow(infoWindow);
+
+                zanImg.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        int zanCount = Integer.parseInt(zan.getText().toString());
+                        if (isFirstClick) {
+                            zanCount += 1;
+                            info.setZanId(R.drawable.map_zan_red);
+                            zanImg.setImageResource(info.getZanId());
+                            isFirstClick = false;
+                            info.setFirstClick(isFirstClick);
+                        } else {
+                            zanCount -= 1;
+                            info.setZanId(R.drawable.map_zan);
+                            zanImg.setImageResource(info.getZanId());
+                            isFirstClick = true;
+                            info.setFirstClick(isFirstClick);
+                        }
+                        zan.setText(zanCount + "");
+                        info.setZan(zanCount);
+
+
+                    }
+                });
 
                 mMarkerly.setVisibility(View.VISIBLE);
                 return true;
@@ -126,13 +156,16 @@ public class MainActivity extends Activity {
                 return false;
             }
         });
-    }
 
+
+
+    }
 
 
     private void initOverlay() {
         mMarker = new BitmapDescriptorFactory().fromResource(R.drawable.maker);
         mMarkerly = (RelativeLayout) findViewById(R.id.id_marker_ly);
+        zanImg = (ImageView) mMarkerly.findViewById(R.id.id_info_img_zan);
     }
 
     private void initDirection() {
