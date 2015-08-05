@@ -12,6 +12,7 @@ import android.hardware.SensorManager;
 
 public class MyOrientationListener implements SensorEventListener {
 
+
     private SensorManager manager;
     private Sensor mSensor;
     private Context mContext;

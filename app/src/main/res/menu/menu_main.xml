@@ -34,4 +34,8 @@
         android:title="罗盘模式"
         app:showAsAction="never" />
 
+    <item android:id="@+id/map_overlay"
+        android:title="添加覆盖物"
+        app:showAsAction="never" />
+
 </menu>
